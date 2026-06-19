@@ -31,7 +31,7 @@ def parse_relative_delta(token: str) -> timedelta:
 
 def parse_alarm_time(value: str, now: datetime | None = None) -> datetime:
     if now is None:
-        now = datetime.now()
+        now = datetime.now().astimezone().replace(tzinfo=None)
 
     raw = value.strip()
     if not raw:
@@ -66,7 +66,7 @@ def parse_alarm_time(value: str, now: datetime | None = None) -> datetime:
 
 def seconds_until(target: datetime, now: datetime | None = None) -> int:
     if now is None:
-        now = datetime.now()
+        now = datetime.now().astimezone().replace(tzinfo=None)
     delta = target - now
     return max(0, int(delta.total_seconds()))
 
